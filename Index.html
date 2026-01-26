@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interlinear Bible Reader</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=48&id=ho7FUWP8PGIX&format=png">
+
+    <!-- Google Fonts for reading fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=EB+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Literata:wght@400;500;600&family=Lora:wght@400;500;600&family=Merriweather:wght@400;700&family=Open+Sans:wght@400;500;600&family=Roboto:wght@400;500;700&family=Source+Serif+4:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="IBRstyle.css">
+
+    <script>
+        // Apply saved settings immediately to prevent flash
+        const savedPreset = localStorage.getItem('themePreset');
+        const savedFont = localStorage.getItem('fontFamily');
+        const savedFontSize = localStorage.getItem('fontSize');
+        const savedLineHeight = localStorage.getItem('lineHeight');
+
+        if (savedPreset && savedPreset !== 'default') {
+            document.documentElement.setAttribute('data-preset', savedPreset);
+        }
+        if (savedFont && savedFont !== 'system') {
+            document.documentElement.setAttribute('data-font', savedFont);
+        }
+        if (savedFontSize && savedFontSize !== 'medium') {
+            document.documentElement.setAttribute('data-font-size', savedFontSize);
+        }
+        if (savedLineHeight && savedLineHeight !== 'normal') {
+            document.documentElement.setAttribute('data-line-height', savedLineHeight);
+        }
+    </script>
+</head>
+
+<h1>Interlinear Bible Reader</h1>
+
+<body>
+
+    <div id="navBar">
+        <div class="nav-group">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="Book">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            <select id="bookSelect" title="Select Book"></select>
+        </div>
+        <div class="nav-group">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="Chapter">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <select id="chapterSelect" title="Select Chapter"></select>
+        </div>
+        <div class="nav-buttons">
+            <button id="prevChapter" title="Previous Chapter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button id="nextChapter" title="Next Chapter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        <button id="settingsBtn" onclick="window.location.href='settings.html'" title="Settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <div id="main">
+        <div id="biblePanel"></div>
+        <div id="sidePanel">
+            <h3>Word Details</h3>
+            <div id="definitionContent">Click a word to see details here.</div>
+        </div>
+    </div>
+
+    <script>
+        let bibleData = [];
+        let strongsData = {};
+        let currentChapter = [];
+        let bookMap = {}; // book -> chapters
+
+        // Load JSON files
+        Promise.all([
+            fetch('bible.json').then(r => r.json()),
+            fetch('strongs.json').then(r => r.json())
+        ]).then(([bibleJson, strongsJson]) => {
+            bibleData = bibleJson;
+            strongsData = strongsJson;
+            initializeNavigation();
+        });
+
+        // Initialize book/chapter dropdowns
+        function initializeNavigation() {
+            const bookSelect = document.getElementById('bookSelect');
+            const chapterSelect = document.getElementById('chapterSelect');
+
+            // Build book -> chapters map
+            bibleData.forEach(item => {
+                const [translation, book, chapter] = item.r.split(':');
+                if (!bookMap[book]) bookMap[book] = new Set();
+                bookMap[book].add(chapter);
+            });
+
+            // Populate book select
+            Object.keys(bookMap).forEach(book => {
+                const option = document.createElement('option');
+                option.value = book;
+                option.textContent = book;
+                bookSelect.appendChild(option);
+            });
+
+            bookSelect.addEventListener('change', () => {
+                populateChapterSelect(bookSelect.value);
+                loadChapter(bookSelect.value, chapterSelect.value);
+            });
+
+            chapterSelect.addEventListener('change', () => {
+                loadChapter(bookSelect.value, chapterSelect.value);
+            });
+
+            // Initial selection - restore from localStorage or use first book
+            const savedBook = localStorage.getItem('lastBook');
+            const savedChapter = localStorage.getItem('lastChapter');
+            const books = Object.keys(bookMap);
+
+            let initialBook = books[0];
+            if (savedBook && books.includes(savedBook)) {
+                initialBook = savedBook;
+            }
+
+            bookSelect.value = initialBook;
+            populateChapterSelect(initialBook);
+
+            // Restore saved chapter if valid
+            const chapters = Array.from(bookMap[initialBook]).map(String);
+            if (savedChapter && chapters.includes(savedChapter)) {
+                chapterSelect.value = savedChapter;
+            }
+
+            loadChapter(bookSelect.value, chapterSelect.value);
+
+            // Next/Prev buttons
+            const prevBtn = document.getElementById('prevChapter');
+            const nextBtn = document.getElementById('nextChapter');
+
+            prevBtn.addEventListener('click', () => navigateChapter(-1));
+            nextBtn.addEventListener('click', () => navigateChapter(1));
+
+            function navigateChapter(offset) {
+                const chapters = Array.from(bookMap[bookSelect.value]).sort((a, b) => a - b);
+                let currentIndex = chapters.indexOf(chapterSelect.value);
+                let newIndex = currentIndex + offset;
+
+                if (newIndex < 0) {
+                    const books = Object.keys(bookMap);
+                    let currentBookIndex = books.indexOf(bookSelect.value);
+                    currentBookIndex = (currentBookIndex - 1 + books.length) % books.length;
+                    bookSelect.value = books[currentBookIndex];
+                    populateChapterSelect(bookSelect.value);
+                    chapterSelect.value = Array.from(bookMap[books[currentBookIndex]]).sort((a, b) => a - b).slice(-1)[0];
+                } else if (newIndex >= chapters.length) {
+                    const books = Object.keys(bookMap);
+                    let currentBookIndex = books.indexOf(bookSelect.value);
+                    currentBookIndex = (currentBookIndex + 1) % books.length;
+                    bookSelect.value = books[currentBookIndex];
+                    populateChapterSelect(bookSelect.value);
+                    chapterSelect.value = Array.from(bookMap[books[currentBookIndex]])[0];
+                } else {
+                    chapterSelect.value = chapters[newIndex];
+                }
+
+                loadChapter(bookSelect.value, chapterSelect.value);
+            }
+        }
+
+        function populateChapterSelect(book) {
+            const chapterSelect = document.getElementById('chapterSelect');
+            chapterSelect.innerHTML = '';
+            const chapters = Array.from(bookMap[book]).sort((a, b) => a - b);
+            chapters.forEach(ch => {
+                const option = document.createElement('option');
+                option.value = ch;
+                option.textContent = ch;
+                chapterSelect.appendChild(option);
+            });
+        }
+
+        // Load and render chapter (interlinear)
+        function loadChapter(book, chapter) {
+            // Save to localStorage
+            localStorage.setItem('lastBook', book);
+            localStorage.setItem('lastChapter', chapter);
+
+            const panel = document.getElementById('biblePanel');
+            panel.innerHTML = '';
+
+            currentChapter = bibleData
+                .filter(item => {
+                    const [translation, b, c] = item.r.split(':');
+                    return b === book && c === chapter;
+                })
+                .sort((a, b) => a.o - b.o);
+
+            currentChapter.forEach(item => {
+                // Headers
+                if (item.h) {
+                    const level = Math.min(Math.max(item.h, 1), 4);
+                    const heading = document.createElement(`h${level}`);
+                    heading.textContent = item.t;
+                    panel.appendChild(heading);
+                }
+
+                // Interlinear verse
+                if (item.d && item.d.length > 0) {
+                    const [, , , v] = item.r.split(':');
+                    const isVerseZero = v === '0';
+
+                    const verseDiv = document.createElement('div');
+                    verseDiv.className = isVerseZero ? 'verse verse-zero' : 'verse';
+
+                    // create the first line container
+                    let currentLine = createLineContainer(null);
+
+                    // add verse number inside that first line (skip for verse 0)
+                    if (!isVerseZero) {
+                        const verseNumber = document.createElement('span');
+                        verseNumber.textContent = v;
+                        verseNumber.className = 'verse-number';
+                        currentLine.appendChild(verseNumber);
+                        currentLine.appendChild(document.createTextNode(" "));
+                    }
+
+                    item.d.forEach((wordObj, index) => {
+                        // detect line breaks - but only create new line if current line has words
+                        // Short class names: l=line, n=indented, d=double-indent, p=paragraph
+                        const hasWords = currentLine.querySelector('.word') !== null;
+                        const isLine = wordObj.class && wordObj.class.includes("l");
+                        const isIndented = wordObj.class && wordObj.class.includes("n");
+                        const isDoubleIndented = wordObj.class && wordObj.class.includes("d");
+
+                        // Handle line breaks (a word can have both "l" and "n")
+                        if (isLine || isIndented || isDoubleIndented) {
+                            if (hasWords) {
+                                verseDiv.appendChild(currentLine);
+                                currentLine = createLineContainer(isIndented ? 'n' : (isDoubleIndented ? 'd' : null));
+                            } else {
+                                // First word - just add indented class if needed
+                                if (isIndented) {
+                                    currentLine.classList.add('n');
+                                } else if (isDoubleIndented) {
+                                    currentLine.classList.add('d');
+                                }
+                            }
+                        }
+
+                        // detect paragraph start - add spacing to the current line
+                        if (wordObj.class && wordObj.class.includes("p")) {
+                            currentLine.classList.add('p');
+                        }
+
+                        // build word
+                        const wordSpan = document.createElement('span');
+                        wordSpan.className = "word tooltip";
+                        const [english, original, translit] = wordObj.t.split('|');
+                        wordSpan.textContent = english;
+
+                        if (wordObj.class) {
+                            (Array.isArray(wordObj.class) ? wordObj.class : [wordObj.class])
+                                .forEach(cls => wordSpan.classList.add(cls));
+                        }
+
+                        // metadata
+                        wordSpan.dataset.strongs = wordObj.s || '';
+                        wordSpan.dataset.original = original || '';
+                        wordSpan.dataset.translit = translit || '';
+                        wordSpan.dataset.parsing = wordObj.c || '';
+                        wordSpan.dataset.english = english || '';
+                        wordSpan.dataset.tooltip = `${original || ''} | ${translit || ''}`;
+                        wordSpan.addEventListener('click', () => displayDefinition(wordSpan));
+
+                        currentLine.appendChild(wordSpan);
+                        currentLine.appendChild(document.createTextNode(" "));
+                    });
+
+                    // append last line to verse
+                    verseDiv.appendChild(currentLine);
+
+                    panel.appendChild(verseDiv);
+                }
+            });
+        }
+
+        function createLineContainer(indentClass) {
+            // indentClass: 'n' for indented, 'd' for double-indented, null for normal
+            const div = document.createElement('div');
+            div.className = 'line-div';
+            if (indentClass) {
+                div.classList.add(indentClass);
+            }
+            return div;
+        }
+
+
+
+        function displayDefinition(wordSpan) {
+            document.querySelectorAll('.word.selected').forEach(w => w.classList.remove('selected'));
+            wordSpan.classList.add('selected');
+
+            // Normalize Strong's to H/G + 4 digits
+            let strongs = wordSpan.dataset.strongs || '';
+            if (strongs) {
+                const letter = strongs[0].toUpperCase();     // 'H' or 'G'
+                const number = strongs.slice(1).padStart(4, '0');
+                strongs = letter + number;                   // e.g., H0430
+            }
+
+            const definitionRaw = strongsData[strongs] || 'Definition not found.';
+            const definition = String(definitionRaw).replace(/\\+/g, '').replace(/\n/g, '<br>');
+
+            const parsing = wordSpan.dataset.parsing
+                ? `<br><b>Parsing:</b> ${wordSpan.dataset.parsing}`
+                : '';
+
+            const content = `
+      <p><b>Word:</b> ${wordSpan.dataset.english}</p>
+      <p><b>Original:</b> ${wordSpan.dataset.original}</p>
+      <p><b>Transliteration:</b> ${wordSpan.dataset.translit}</p>
+      <p><b>Strong's ${strongs}:</b><br>${definition}</p>
+      ${parsing}
+    `;
+
+            document.getElementById('definitionContent').innerHTML = content;
+        }
+    </script>
+
+</body>
+
+</html>
