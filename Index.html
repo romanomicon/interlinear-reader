@@ -40,40 +40,13 @@
 <body>
 
     <div id="navBar">
-        <div class="nav-group">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="Book">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-            </svg>
-            <select id="bookSelect" title="Select Book"></select>
-        </div>
-        <div class="nav-group">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="Chapter">
-                <line x1="4" y1="9" x2="20" y2="9"></line>
-                <line x1="4" y1="15" x2="20" y2="15"></line>
-                <line x1="10" y1="3" x2="8" y2="21"></line>
-                <line x1="16" y1="3" x2="14" y2="21"></line>
-            </svg>
-            <select id="chapterSelect" title="Select Chapter"></select>
-        </div>
-        <div class="nav-buttons">
-            <button id="prevChapter" title="Previous Chapter">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-            </button>
-            <button id="nextChapter" title="Next Chapter">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-            </button>
-        </div>
-        <button id="settingsBtn" onclick="window.location.href='settings.html'" title="Settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-        </button>
+        <span>Select Book:</span>
+        <select id="bookSelect"></select>
+        <span>Select Chapter:</span>
+        <select id="chapterSelect"></select>
+        <button id="prevChapter">&#9664; Previous</button>
+        <button id="nextChapter">Next &#9654;</button>
+        <button id="settingsBtn" onclick="window.location.href='settings.html'">Settings</button>
     </div>
 
     <div id="main">
@@ -129,26 +102,10 @@
                 loadChapter(bookSelect.value, chapterSelect.value);
             });
 
-            // Initial selection - restore from localStorage or use first book
-            const savedBook = localStorage.getItem('lastBook');
-            const savedChapter = localStorage.getItem('lastChapter');
-            const books = Object.keys(bookMap);
-
-            let initialBook = books[0];
-            if (savedBook && books.includes(savedBook)) {
-                initialBook = savedBook;
-            }
-
-            bookSelect.value = initialBook;
-            populateChapterSelect(initialBook);
-
-            // Restore saved chapter if valid
-            const chapters = Array.from(bookMap[initialBook]).map(String);
-            if (savedChapter && chapters.includes(savedChapter)) {
-                chapterSelect.value = savedChapter;
-            }
-
-            loadChapter(bookSelect.value, chapterSelect.value);
+            // Initial selection
+            const firstBook = Object.keys(bookMap)[0];
+            populateChapterSelect(firstBook);
+            loadChapter(firstBook, chapterSelect.value);
 
             // Next/Prev buttons
             const prevBtn = document.getElementById('prevChapter');
@@ -198,10 +155,6 @@
 
         // Load and render chapter (interlinear)
         function loadChapter(book, chapter) {
-            // Save to localStorage
-            localStorage.setItem('lastBook', book);
-            localStorage.setItem('lastChapter', chapter);
-
             const panel = document.getElementById('biblePanel');
             panel.innerHTML = '';
 
