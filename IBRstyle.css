@@ -434,9 +434,9 @@ h3, h4 {
 #navBar {
     background: var(--accent-primary);
     color: var(--text-inverse);
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
     box-shadow: var(--shadow-strong);
     position: sticky;
@@ -444,10 +444,60 @@ h3, h4 {
     z-index: 10;
 }
 
-#navBar span {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-icon {
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    flex-shrink: 0;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.nav-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: var(--radius-small);
+    border: 2px solid var(--border-primary);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-soft);
+}
+
+.nav-buttons button svg {
+    width: 18px;
+    height: 18px;
+}
+
+.nav-buttons button:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.nav-buttons button:active {
+    transform: translateY(-1px);
+}
+
+.nav-buttons button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
 }
 
 /* ================================
@@ -477,46 +527,6 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
 }
 
-/* ================================
-   Navigation Buttons
-   ================================ */
-
-#prevChapter,
-#nextChapter {
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-small);
-    border: 2px solid var(--border-primary);
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: var(--shadow-soft);
-}
-
-#prevChapter:hover,
-#nextChapter:hover {
-    background: var(--bg-hover);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
-}
-
-#prevChapter:active,
-#nextChapter:active {
-    transform: translateY(-1px);
-}
-
-#prevChapter:focus,
-#nextChapter:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
-}
 
 /* ================================
    Main Layout
@@ -553,27 +563,29 @@ select:focus {
 
 #biblePanel h2 {
     font-size: 1.1rem;
-    margin: 1.25rem 0 0.75rem;
-    padding: 0.5rem 1rem;
-    background: var(--accent-primary);
-    color: var(--text-inverse);
-    display: inline-block;
-    border-radius: var(--radius-medium);
-    box-shadow: var(--shadow-soft);
+    margin: 1.25rem -1.5rem 0.75rem;
+    padding: 0.4rem 1.5rem;
+    background: var(--accent-light);
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 #biblePanel h3 {
     font-size: 1rem;
-    color: var(--text-secondary);
-    margin: 1rem 0 0.5rem;
-    font-weight: 500;
+    margin: 1rem -1.5rem 0.5rem;
+    padding: 0.35rem 1.5rem;
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 #biblePanel h4 {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin: 0.75rem 0 0.5rem;
-    font-weight: 500;
+    font-size: 0.95rem;
+    margin: 0.75rem -1.5rem 0.5rem;
+    padding: 0.3rem 1.5rem;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-weight: 600;
 }
 
 /* ================================
@@ -733,7 +745,7 @@ select:focus {
    ================================ */
 
 .sc {
-    font-variant: small-caps;
+    /* Small caps - currently disabled, displays as normal text */
 }
 
 .rd {
@@ -832,11 +844,22 @@ select:focus {
 
     #navBar {
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
+        padding: 0.5rem 0.75rem;
     }
 
-    #navBar span {
-        font-size: 0.8rem;
+    .nav-group {
+        gap: 4px;
+    }
+
+    .nav-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .nav-group select {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -847,7 +870,23 @@ select:focus {
     }
 
     #navBar {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .nav-buttons button,
+    #settingsBtn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .nav-buttons button svg,
+    #settingsBtn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .nav-icon {
+        display: none;
     }
 
     #biblePanel,
@@ -997,10 +1036,12 @@ select:focus {
 
 /* Settings Button in Nav */
 #settingsBtn {
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
     border-radius: var(--radius-small);
     border: 2px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.1);
@@ -1010,10 +1051,20 @@ select:focus {
     margin-left: auto;
 }
 
+#settingsBtn svg {
+    width: 18px;
+    height: 18px;
+}
+
 #settingsBtn:hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.5);
     transform: translateY(-1px);
+}
+
+#settingsBtn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
 /* Font Select Dropdown */
@@ -1056,4 +1107,593 @@ select:focus {
     padding: 1.5rem;
     color: var(--text-secondary);
     margin-top: 1rem;
+}
+
+/* ================================
+   Search Button in Nav
+   ================================ */
+#searchBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: var(--radius-small);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: auto;
+}
+
+#searchBtn svg {
+    width: 18px;
+    height: 18px;
+}
+
+#searchBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+#searchBtn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+/* Move settings button to not have auto margin when search exists */
+#searchBtn + #settingsBtn {
+    margin-left: 4px;
+}
+
+/* ================================
+   Search Page
+   ================================ */
+.search-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.search-container {
+    background: var(--bg-surface);
+    border-radius: var(--radius-large);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-medium);
+    border: 1px solid var(--border-primary);
+    margin-bottom: 1.5rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-input);
+    border-radius: var(--radius-medium);
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.search-box:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+}
+
+.search-box .search-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--text-primary);
+    outline: none;
+    font-family: inherit;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-box button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-small);
+    border: none;
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-box button svg {
+    width: 18px;
+    height: 18px;
+}
+
+.search-box button:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+}
+
+.search-options {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-secondary);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-primary);
+    cursor: pointer;
+}
+
+.search-status {
+    padding: 0.75rem 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.search-status .loading {
+    color: var(--accent-primary);
+}
+
+.search-status .no-results {
+    color: var(--text-muted);
+}
+
+.search-status .results-count strong {
+    color: var(--accent-primary);
+}
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.result-book {
+    background: var(--bg-surface);
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-soft);
+}
+
+.result-book .book-header {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.result-book .book-header .count {
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.book-results {
+    display: flex;
+    flex-direction: column;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid var(--border-secondary);
+    transition: background 0.15s ease;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item:hover {
+    background: var(--bg-hover);
+}
+
+.result-reference {
+    font-weight: 600;
+    color: var(--accent-primary);
+    font-size: 0.9rem;
+}
+
+.result-text {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.result-text mark {
+    background: rgba(26, 115, 232, 0.2);
+    color: var(--accent-primary);
+    padding: 1px 3px;
+    border-radius: 2px;
+}
+
+/* Nav back button for search page */
+.nav-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-small);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nav-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+.nav-back:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-2px);
+}
+
+.nav-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-inverse);
+}
+
+/* ================================
+   Notes System
+   ================================ */
+.note-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    margin-left: 4px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.15s ease;
+    border-radius: var(--radius-small);
+    vertical-align: middle;
+}
+
+.note-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.note-btn:hover {
+    color: var(--accent-primary);
+    background: var(--bg-hover);
+}
+
+.note-btn.has-note {
+    opacity: 1;
+    color: var(--accent-primary);
+}
+
+.verse:hover .note-btn {
+    opacity: 1;
+}
+
+/* Note Modal */
+.note-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.note-modal {
+    background: var(--bg-primary);
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-strong);
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.note-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.note-modal-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.note-modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: var(--radius-small);
+    transition: all 0.15s ease;
+}
+
+.note-modal-close:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.note-modal textarea {
+    flex: 1;
+    min-height: 150px;
+    margin: 1rem 1.25rem;
+    padding: 0.75rem;
+    border: 2px solid var(--border-input);
+    border-radius: var(--radius-small);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: var(--font-reading);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.note-modal textarea:focus {
+    border-color: var(--accent-primary);
+}
+
+.note-modal textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.note-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border-primary);
+}
+
+.note-btn-save,
+.note-btn-delete {
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-small);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.note-btn-save {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    border: none;
+}
+
+.note-btn-save:hover {
+    background: var(--accent-hover);
+}
+
+.note-btn-delete {
+    background: transparent;
+    color: var(--color-danger);
+    border: 2px solid var(--color-danger);
+}
+
+.note-btn-delete:hover {
+    background: var(--color-danger);
+    color: var(--text-inverse);
+}
+
+/* Verse Highlight Animation */
+.verse.highlight-verse {
+    animation: highlightPulse 3s ease;
+}
+
+@keyframes highlightPulse {
+    0%, 100% {
+        background: transparent;
+    }
+    10%, 60% {
+        background: rgba(26, 115, 232, 0.15);
+        border-radius: var(--radius-small);
+    }
+}
+
+/* ================================
+   Responsive - Search & Notes
+   ================================ */
+@media (max-width: 600px) {
+    .search-page {
+        padding: 1rem;
+    }
+
+    .search-container {
+        padding: 1rem;
+    }
+
+    .search-options {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .note-modal {
+        max-height: 90vh;
+    }
+
+    .note-modal textarea {
+        min-height: 120px;
+    }
+
+    #searchBtn {
+        width: 32px;
+        height: 32px;
+    }
+
+    #searchBtn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* ================================
+   Search Type Toggle
+   ================================ */
+.search-type-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.search-type-btn {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: 2px solid var(--border-primary);
+    border-radius: var(--radius-small);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.search-type-btn:hover {
+    border-color: var(--accent-light);
+    color: var(--text-primary);
+}
+
+.search-type-btn.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+.search-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+}
+
+#strongsOptions .search-hint {
+    margin: 0;
+}
+
+#multiWordHint {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-secondary);
+}
+
+/* ================================
+   Search Strong's Button (Side Panel)
+   ================================ */
+.search-strongs-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.6rem 1rem;
+    border: 2px solid var(--accent-primary);
+    border-radius: var(--radius-small);
+    background: transparent;
+    color: var(--accent-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.search-strongs-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.search-strongs-btn:hover {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+/* ================================
+   Responsive - Search Type Toggle
+   ================================ */
+@media (max-width: 600px) {
+    .search-type-toggle {
+        flex-direction: column;
+    }
+
+    .search-type-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
 }

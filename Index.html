@@ -40,13 +40,46 @@
 <body>
 
     <div id="navBar">
-        <span>Select Book:</span>
-        <select id="bookSelect"></select>
-        <span>Select Chapter:</span>
-        <select id="chapterSelect"></select>
-        <button id="prevChapter">&#9664; Previous</button>
-        <button id="nextChapter">Next &#9654;</button>
-        <button id="settingsBtn" onclick="window.location.href='settings.html'">Settings</button>
+        <div class="nav-group">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="Book">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            <select id="bookSelect" title="Select Book"></select>
+        </div>
+        <div class="nav-group">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="Chapter">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+            </svg>
+            <select id="chapterSelect" title="Select Chapter"></select>
+        </div>
+        <div class="nav-buttons">
+            <button id="prevChapter" title="Previous Chapter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button id="nextChapter" title="Next Chapter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        <button id="searchBtn" onclick="window.location.href='search.html'" title="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+        <button id="settingsBtn" onclick="window.location.href='settings.html'" title="Settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </button>
     </div>
 
     <div id="main">
@@ -102,10 +135,49 @@
                 loadChapter(bookSelect.value, chapterSelect.value);
             });
 
-            // Initial selection
-            const firstBook = Object.keys(bookMap)[0];
-            populateChapterSelect(firstBook);
-            loadChapter(firstBook, chapterSelect.value);
+            // Check URL parameters first (for search result navigation)
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlBook = urlParams.get('book');
+            const urlChapter = urlParams.get('chapter');
+            const urlVerse = urlParams.get('verse');
+
+            // Initial selection - URL params > localStorage > first book
+            const savedBook = localStorage.getItem('lastBook');
+            const savedChapter = localStorage.getItem('lastChapter');
+            const books = Object.keys(bookMap);
+
+            let initialBook = books[0];
+            let initialChapter = null;
+
+            // Priority: URL params > localStorage > defaults
+            if (urlBook && books.includes(urlBook)) {
+                initialBook = urlBook;
+                initialChapter = urlChapter;
+            } else if (savedBook && books.includes(savedBook)) {
+                initialBook = savedBook;
+                initialChapter = savedChapter;
+            }
+
+            bookSelect.value = initialBook;
+            populateChapterSelect(initialBook);
+
+            // Restore saved/URL chapter if valid
+            const chapters = Array.from(bookMap[initialBook]).map(String);
+            if (initialChapter && chapters.includes(initialChapter)) {
+                chapterSelect.value = initialChapter;
+            }
+
+            loadChapter(bookSelect.value, chapterSelect.value);
+
+            // Scroll to specific verse if provided in URL
+            if (urlVerse) {
+                setTimeout(() => scrollToVerse(urlVerse), 100);
+            }
+
+            // Clear URL params after navigation (keeps URL clean)
+            if (urlBook) {
+                window.history.replaceState({}, '', window.location.pathname);
+            }
 
             // Next/Prev buttons
             const prevBtn = document.getElementById('prevChapter');
@@ -155,6 +227,10 @@
 
         // Load and render chapter (interlinear)
         function loadChapter(book, chapter) {
+            // Save to localStorage
+            localStorage.setItem('lastBook', book);
+            localStorage.setItem('lastChapter', chapter);
+
             const panel = document.getElementById('biblePanel');
             panel.innerHTML = '';
 
@@ -243,7 +319,7 @@
                         wordSpan.addEventListener('click', () => displayDefinition(wordSpan));
 
                         currentLine.appendChild(wordSpan);
-                        currentLine.appendChild(document.createTextNode(" "));
+                        currentLine.appendChild(document.createTextNode(' '));
                     });
 
                     // append last line to verse
@@ -272,29 +348,196 @@
 
             // Normalize Strong's to H/G + 4 digits
             let strongs = wordSpan.dataset.strongs || '';
+            let strongsDisplay = strongs;
             if (strongs) {
                 const letter = strongs[0].toUpperCase();     // 'H' or 'G'
                 const number = strongs.slice(1).padStart(4, '0');
                 strongs = letter + number;                   // e.g., H0430
+                strongsDisplay = strongs;
             }
 
             const definitionRaw = strongsData[strongs] || 'Definition not found.';
             const definition = String(definitionRaw).replace(/\\+/g, '').replace(/\n/g, '<br>');
 
             const parsing = wordSpan.dataset.parsing
-                ? `<br><b>Parsing:</b> ${wordSpan.dataset.parsing}`
+                ? `<p><b>Parsing:</b> ${wordSpan.dataset.parsing}</p>`
+                : '';
+
+            // Create search button for Strong's number
+            const searchBtn = strongs
+                ? `<button class="search-strongs-btn" onclick="searchStrongsInBible('${strongs}')" title="Find all occurrences">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    Search Bible for ${strongsDisplay}
+                   </button>`
                 : '';
 
             const content = `
       <p><b>Word:</b> ${wordSpan.dataset.english}</p>
       <p><b>Original:</b> ${wordSpan.dataset.original}</p>
       <p><b>Transliteration:</b> ${wordSpan.dataset.translit}</p>
-      <p><b>Strong's ${strongs}:</b><br>${definition}</p>
+      <p><b>Strong's ${strongsDisplay}:</b><br>${definition}</p>
       ${parsing}
+      ${searchBtn}
     `;
 
             document.getElementById('definitionContent').innerHTML = content;
         }
+
+        // Navigate to search page with Strong's number
+        function searchStrongsInBible(strongs) {
+            window.location.href = `search.html?type=strongs&q=${encodeURIComponent(strongs)}`;
+        }
+
+        // Scroll to a specific verse
+        function scrollToVerse(verseNum) {
+            const verses = document.querySelectorAll('.verse');
+            for (const verse of verses) {
+                const verseNumber = verse.querySelector('.verse-number');
+                if (verseNumber && verseNumber.textContent === verseNum) {
+                    verse.classList.add('highlight-verse');
+                    verse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Remove highlight after animation
+                    setTimeout(() => verse.classList.remove('highlight-verse'), 3000);
+                    break;
+                }
+            }
+        }
+
+        // ==================== Notes System ====================
+        function getNotesKey(book, chapter, verse) {
+            return `note:${book}:${chapter}:${verse}`;
+        }
+
+        function getAllNotes() {
+            const notes = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('note:')) {
+                    notes[key] = localStorage.getItem(key);
+                }
+            }
+            return notes;
+        }
+
+        function getNote(book, chapter, verse) {
+            return localStorage.getItem(getNotesKey(book, chapter, verse)) || '';
+        }
+
+        function saveNote(book, chapter, verse, text) {
+            const key = getNotesKey(book, chapter, verse);
+            if (text.trim()) {
+                localStorage.setItem(key, text);
+            } else {
+                localStorage.removeItem(key);
+            }
+            updateNoteIndicators();
+        }
+
+        function updateNoteIndicators() {
+            const book = document.getElementById('bookSelect').value;
+            const chapter = document.getElementById('chapterSelect').value;
+
+            document.querySelectorAll('.verse').forEach(verseEl => {
+                const verseNumber = verseEl.querySelector('.verse-number');
+                if (!verseNumber) return;
+
+                const verseNum = verseNumber.textContent;
+                const hasNote = getNote(book, chapter, verseNum);
+
+                // Remove existing note button if any
+                const existingBtn = verseEl.querySelector('.note-btn');
+                if (existingBtn) existingBtn.remove();
+
+                // Add note button
+                const noteBtn = document.createElement('button');
+                noteBtn.className = hasNote ? 'note-btn has-note' : 'note-btn';
+                noteBtn.title = hasNote ? 'View/Edit note' : 'Add note';
+                noteBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>`;
+                noteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openNoteModal(book, chapter, verseNum);
+                });
+
+                // Insert after verse number
+                verseNumber.after(noteBtn);
+            });
+        }
+
+        function openNoteModal(book, chapter, verse) {
+            // Remove existing modal if any
+            const existingModal = document.getElementById('noteModal');
+            if (existingModal) existingModal.remove();
+
+            const note = getNote(book, chapter, verse);
+
+            const modal = document.createElement('div');
+            modal.id = 'noteModal';
+            modal.className = 'note-modal-overlay';
+            modal.innerHTML = `
+                <div class="note-modal">
+                    <div class="note-modal-header">
+                        <h3>Note for ${book} ${chapter}:${verse}</h3>
+                        <button class="note-modal-close" title="Close">&times;</button>
+                    </div>
+                    <textarea id="noteText" placeholder="Write your note here...">${escapeHtml(note)}</textarea>
+                    <div class="note-modal-actions">
+                        <button class="note-btn-delete" ${!note ? 'style="display:none"' : ''}>Delete</button>
+                        <button class="note-btn-save">Save</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Focus textarea
+            const textarea = modal.querySelector('#noteText');
+            textarea.focus();
+            textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+
+            // Event handlers
+            modal.querySelector('.note-modal-close').addEventListener('click', () => modal.remove());
+            modal.querySelector('.note-btn-save').addEventListener('click', () => {
+                saveNote(book, chapter, verse, textarea.value);
+                modal.remove();
+            });
+            modal.querySelector('.note-btn-delete').addEventListener('click', () => {
+                saveNote(book, chapter, verse, '');
+                modal.remove();
+            });
+
+            // Close on overlay click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.remove();
+            });
+
+            // Close on Escape
+            const escHandler = (e) => {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', escHandler);
+                }
+            };
+            document.addEventListener('keydown', escHandler);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Update note indicators after chapter loads
+        const originalLoadChapter = loadChapter;
+        loadChapter = function(book, chapter) {
+            originalLoadChapter(book, chapter);
+            setTimeout(updateNoteIndicators, 0);
+        };
     </script>
 
 </body>
