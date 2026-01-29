@@ -566,7 +566,7 @@ select:focus {
     margin: 1.25rem -1.5rem 0.75rem;
     padding: 0.4rem 1.5rem;
     background: var(--accent-light);
-    color: var(--text-primary);
+    color: var(--text-inverse);
     font-weight: 600;
 }
 
@@ -621,6 +621,43 @@ select:focus {
     font-weight: 700;
     min-width: 1.5rem;
     margin-right: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-radius: var(--radius-small);
+    padding: 0 0.25rem;
+}
+
+.verse-number:hover {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+.verse-number.copied {
+    background: var(--color-success);
+    color: var(--text-inverse);
+    min-width: 3.5rem;
+}
+
+.verse-number[data-tooltip] {
+    position: relative;
+}
+
+.verse-number[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-primary);
+    color: var(--text-inverse);
+    padding: 6px 10px;
+    border-radius: var(--radius-small);
+    white-space: nowrap;
+    font-size: 0.8rem;
+    font-weight: 400;
+    z-index: 100;
+    box-shadow: var(--shadow-medium);
+    animation: tooltipFadeIn 0.15s ease;
 }
 
 .line-div {

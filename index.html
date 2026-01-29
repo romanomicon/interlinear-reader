@@ -266,6 +266,11 @@
                         const verseNumber = document.createElement('span');
                         verseNumber.textContent = v;
                         verseNumber.className = 'verse-number';
+                        verseNumber.dataset.tooltip = 'Click to copy verse';
+                        verseNumber.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            copyVerseText(verseDiv, book, chapter, v);
+                        });
                         currentLine.appendChild(verseNumber);
                         currentLine.appendChild(document.createTextNode(" "));
                     }
@@ -406,6 +411,29 @@
             }
         }
 
+        // Copy verse text to clipboard
+        function copyVerseText(verseDiv, book, chapter, verseNum) {
+            // Get all words from the verse
+            const words = verseDiv.querySelectorAll('.word');
+            const verseText = Array.from(words).map(w => w.textContent).join(' ');
+            const reference = `${book} ${chapter}:${verseNum}`;
+            const fullText = `${verseText} (${reference})`;
+
+            navigator.clipboard.writeText(fullText).then(() => {
+                // Show feedback
+                const verseNumber = verseDiv.querySelector('.verse-number');
+                const originalText = verseNumber.textContent;
+                verseNumber.textContent = 'Copied!';
+                verseNumber.classList.add('copied');
+                setTimeout(() => {
+                    verseNumber.textContent = originalText;
+                    verseNumber.classList.remove('copied');
+                }, 1500);
+            }).catch(err => {
+                console.error('Failed to copy verse:', err);
+            });
+        }
+
         // ==================== Notes System ====================
         function getNotesKey(book, chapter, verse) {
             return `note:${book}:${chapter}:${verse}`;
@@ -541,6 +569,5 @@
     </script>
 
 </body>
-
 
 </html>
