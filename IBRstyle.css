@@ -40,9 +40,9 @@
     --shadow-strong: 0 4px 12px rgba(60, 64, 67, 0.2);
 
     /* Border Radius */
-    --radius-small: 4px;
-    --radius-medium: 6px;
-    --radius-large: 8px;
+    --radius-small: 6px;
+    --radius-medium: 10px;
+    --radius-large: 14px;
 
     /* Typography */
     --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -394,7 +394,7 @@
 body {
     margin: 0;
     font-family: var(--font-ui);
-    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-surface) 100%);
+    background: var(--bg-surface-muted);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -403,14 +403,13 @@ body {
 }
 
 h1 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 700;
     margin: 0;
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.5rem;
     background: var(--accent-primary);
     color: var(--text-inverse);
-    letter-spacing: -0.5px;
-    box-shadow: var(--shadow-medium);
+    letter-spacing: -0.3px;
 }
 
 h2 {
@@ -432,15 +431,17 @@ h3, h4 {
    ================================ */
 
 #navBar {
-    background: var(--accent-primary);
+    background: var(--text-primary);
     color: var(--text-inverse);
     padding: 0.5rem 1rem;
+    margin: 0.75rem 0.75rem 0;
     display: flex;
-    gap: 8px;
+    gap: 10px;
     align-items: center;
     box-shadow: var(--shadow-strong);
+    border-radius: var(--radius-large);
     position: sticky;
-    top: 0;
+    top: 0.75rem;
     z-index: 10;
 }
 
@@ -453,7 +454,7 @@ h3, h4 {
 .nav-icon {
     width: 18px;
     height: 18px;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.6);
     flex-shrink: 0;
 }
 
@@ -470,12 +471,11 @@ h3, h4 {
     height: 36px;
     padding: 0;
     border-radius: var(--radius-small);
-    border: 2px solid var(--border-primary);
-    background: var(--bg-surface);
-    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: var(--shadow-soft);
 }
 
 .nav-buttons button svg {
@@ -484,20 +484,17 @@ h3, h4 {
 }
 
 .nav-buttons button:hover {
-    background: var(--bg-hover);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .nav-buttons button:active {
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.nav-buttons button:focus {
+.nav-buttons button:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
 /* ================================
@@ -506,8 +503,9 @@ h3, h4 {
 
 select {
     padding: 0.5rem 0.75rem;
+    height: 36px;
     border-radius: var(--radius-small);
-    border: 2px solid var(--border-input);
+    border: 1px solid var(--border-primary);
     background: var(--bg-surface);
     color: var(--text-primary);
     font-size: 0.9rem;
@@ -515,7 +513,26 @@ select {
     cursor: pointer;
     outline: none;
     transition: all 0.15s ease;
-    box-shadow: var(--shadow-soft);
+}
+
+#navBar select {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-inverse);
+}
+
+#navBar select option {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+#navBar select:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#navBar select:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
 }
 
 select:hover {
@@ -524,7 +541,7 @@ select:hover {
 
 select:focus {
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
 }
 
 
@@ -536,6 +553,8 @@ select:focus {
     display: flex;
     flex: 1;
     overflow: hidden;
+    gap: 0.75rem;
+    padding: 0.75rem;
 }
 
 /* ================================
@@ -546,10 +565,13 @@ select:focus {
     flex: 2;
     padding: 1.5rem;
     overflow-y: auto;
-    background: var(--bg-surface);
+    background: var(--bg-primary);
     font-family: var(--font-reading);
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-medium);
+    border: 1px solid var(--border-primary);
 }
 
 #biblePanel h1 {
@@ -562,30 +584,30 @@ select:focus {
 }
 
 #biblePanel h2 {
-    font-size: 1.1rem;
-    margin: 1.25rem -1.5rem 0.75rem;
-    padding: 0.4rem 1.5rem;
-    background: var(--accent-light);
-    color: var(--text-inverse);
-    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 1.25rem 0 0.5rem;
+    padding: 0;
+    background: none;
+    color: var(--text-primary);
+    font-weight: 700;
 }
 
 #biblePanel h3 {
-    font-size: 1rem;
-    margin: 1rem -1.5rem 0.5rem;
-    padding: 0.35rem 1.5rem;
-    background: var(--bg-surface);
+    font-size: 1.05rem;
+    margin: 1rem 0 0.5rem;
+    padding: 0;
+    background: none;
     color: var(--text-primary);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 #biblePanel h4 {
-    font-size: 0.95rem;
-    margin: 0.75rem -1.5rem 0.5rem;
-    padding: 0.3rem 1.5rem;
-    background: var(--bg-surface);
+    font-size: 1rem;
+    margin: 0.75rem 0 0.5rem;
+    padding: 0;
+    background: none;
     color: var(--text-secondary);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 /* ================================
@@ -708,21 +730,23 @@ select:focus {
 #sidePanel {
     flex: 1;
     padding: 1.5rem;
-    border-left: 1px solid var(--border-primary);
     overflow-y: auto;
     background: var(--bg-primary);
-    box-shadow: -2px 0 8px rgba(60, 64, 67, 0.08);
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-medium);
+    border: 1px solid var(--border-primary);
 }
 
 #sidePanel h3 {
-    margin: -1.5rem -1.5rem 1rem -1.5rem;
-    padding: 1rem 1.5rem;
-    background: var(--accent-primary);
-    color: var(--text-inverse);
-    font-size: 1rem;
-    font-weight: 600;
+    margin: 0 0 1rem 0;
+    padding: 0 0 0.75rem 0;
+    background: none;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border-primary);
 }
 
 #definitionContent {
@@ -869,16 +893,6 @@ select:focus {
         flex-direction: column;
     }
 
-    #sidePanel {
-        border-left: none;
-        border-top: 1px solid var(--border-primary);
-        box-shadow: 0 -2px 8px rgba(60, 64, 67, 0.08);
-    }
-
-    #sidePanel h3 {
-        margin: -1.5rem -1.5rem 1rem -1.5rem;
-    }
-
     #navBar {
         flex-wrap: wrap;
         gap: 6px;
@@ -902,22 +916,31 @@ select:focus {
 
 @media (max-width: 600px) {
     h1 {
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         padding: 0.5rem 1rem;
     }
 
+    #main {
+        padding: 0.5rem;
+        gap: 0.5rem;
+    }
+
     #navBar {
+        margin: 0.5rem 0.5rem 0;
         padding: 0.5rem 0.75rem;
+        top: 0.5rem;
     }
 
     .nav-buttons button,
-    #settingsBtn {
+    #settingsBtn,
+    #searchBtn {
         width: 32px;
         height: 32px;
     }
 
     .nav-buttons button svg,
-    #settingsBtn svg {
+    #settingsBtn svg,
+    #searchBtn svg {
         width: 16px;
         height: 16px;
     }
@@ -930,11 +953,6 @@ select:focus {
     #sidePanel {
         padding: 1rem;
     }
-
-    #sidePanel h3 {
-        margin: -1rem -1rem 1rem -1rem;
-        padding: 0.75rem 1rem;
-    }
 }
 
 /* ================================
@@ -942,40 +960,41 @@ select:focus {
    ================================ */
 
 .settings-page {
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 1.5rem;
 }
 
 .settings-page h1 {
     background: none;
     color: var(--text-primary);
     padding: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     box-shadow: none;
+    font-size: 1.5rem;
 }
 
 .settings-page .muted {
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .settings-card {
-    background: var(--bg-surface);
-    border-radius: var(--radius-medium);
+    background: var(--bg-primary);
+    border-radius: var(--radius-large);
     padding: 0;
-    box-shadow: var(--shadow-strong);
-    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 1rem;
     border: 1px solid var(--border-primary);
     overflow: hidden;
 }
 
 .settings-card h2 {
     margin: 0;
-    padding: 1.25rem 1.5rem;
-    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    background: var(--accent-primary);
+    background: var(--text-primary);
     color: var(--text-inverse);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -983,12 +1002,13 @@ select:focus {
 
 .settings-card > p,
 .settings-card > div {
-    padding: 1.5rem;
+    padding: 1.25rem 1.5rem;
 }
 
 .settings-card > p.muted {
-    padding: 1rem 1.5rem 0;
+    padding: 0.75rem 1.5rem 0;
     margin: 0;
+    font-size: 0.9rem;
 }
 
 /* Preset Theme Selector */
@@ -1000,33 +1020,28 @@ select:focus {
 }
 
 .preset-button {
-    padding: 14px 16px;
-    border: 2px solid var(--border-primary);
+    padding: 12px 14px;
+    border: 1px solid var(--border-primary);
     border-radius: var(--radius-small);
-    background: var(--bg-primary);
-    color: var(--text-primary);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 600;
     text-align: center;
-    font-size: 0.9rem;
-    box-shadow: var(--shadow-soft);
+    font-size: 0.85rem;
 }
 
 .preset-button:hover {
     background: var(--bg-hover);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
+    border-color: var(--text-primary);
+    color: var(--text-primary);
 }
 
 .preset-button.active {
-    background: var(--accent-primary);
-    border-color: var(--accent-primary);
+    background: var(--text-primary);
+    border-color: var(--text-primary);
     color: var(--text-inverse);
-    box-shadow: var(--shadow-strong);
-    transform: scale(1.02);
 }
 
 /* Settings Info Rows */
@@ -1034,7 +1049,7 @@ select:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem;
+    padding: 0.85rem 1.5rem;
     border-bottom: 1px solid var(--border-secondary);
 }
 
@@ -1043,32 +1058,32 @@ select:focus {
 }
 
 .setting-row label {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-primary);
     font-weight: 600;
 }
 
 .setting-row .description {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
 }
 
 /* Back Link */
 .back-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--accent-primary);
+    gap: 0.4rem;
+    color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
-    margin-bottom: 1.5rem;
-    transition: all 0.15s ease;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+    transition: color 0.15s ease;
 }
 
 .back-link:hover {
-    color: var(--accent-hover);
-    transform: translateX(-2px);
+    color: var(--text-primary);
 }
 
 /* Settings Button in Nav */
@@ -1080,7 +1095,7 @@ select:focus {
     height: 36px;
     padding: 0;
     border-radius: var(--radius-small);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-inverse);
     cursor: pointer;
@@ -1095,8 +1110,7 @@ select:focus {
 
 #settingsBtn:hover {
     background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 #settingsBtn:focus {
@@ -1106,18 +1120,18 @@ select:focus {
 
 /* Font Select Dropdown */
 .font-select {
-    padding: 0.6rem 1rem;
+    padding: 0.5rem 0.75rem;
+    height: 36px;
     border-radius: var(--radius-small);
-    border: 2px solid var(--border-input);
-    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    background: var(--bg-surface);
     color: var(--text-primary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-family: var(--font-ui);
     cursor: pointer;
     outline: none;
     transition: all 0.15s ease;
-    box-shadow: var(--shadow-soft);
-    min-width: 180px;
+    min-width: 170px;
 }
 
 .font-select:hover {
@@ -1126,7 +1140,7 @@ select:focus {
 
 .font-select:focus {
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
 }
 
 .font-settings {
@@ -1134,16 +1148,15 @@ select:focus {
 }
 
 .font-settings .setting-row {
-    padding: 1.25rem 1.5rem;
+    padding: 0.85rem 1.5rem;
 }
 
 /* Footer */
 .footer {
     text-align: center;
-    font-size: 0.85rem;
-    padding: 1.5rem;
-    color: var(--text-secondary);
-    margin-top: 1rem;
+    font-size: 0.8rem;
+    padding: 1rem;
+    color: var(--text-muted);
 }
 
 /* ================================
@@ -1157,7 +1170,7 @@ select:focus {
     height: 36px;
     padding: 0;
     border-radius: var(--radius-small);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-inverse);
     cursor: pointer;
@@ -1172,8 +1185,7 @@ select:focus {
 
 #searchBtn:hover {
     background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 #searchBtn:focus {
@@ -1190,7 +1202,7 @@ select:focus {
    Search Page
    ================================ */
 .search-page {
-    max-width: 900px;
+    max-width: 640px;
     margin: 0 auto;
     padding: 1.5rem;
 }
@@ -1206,18 +1218,26 @@ select:focus {
 
 .search-box {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--bg-primary);
-    border: 2px solid var(--border-input);
+    align-items: stretch;
+    background: var(--text-primary);
+    border: 2px solid var(--text-primary);
     border-radius: var(--radius-medium);
-    padding: 0.5rem 1rem;
+    overflow: hidden;
     transition: all 0.2s ease;
 }
 
 .search-box:focus-within {
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+}
+
+.search-box-input {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    background: var(--bg-primary);
+    gap: 0.5rem;
+    padding: 0 1rem;
+    min-width: 0;
 }
 
 .search-box .search-icon {
@@ -1235,34 +1255,40 @@ select:focus {
     color: var(--text-primary);
     outline: none;
     font-family: inherit;
+    padding: 0.6rem 0;
+    min-width: 0;
 }
 
 .search-box input::placeholder {
     color: var(--text-muted);
 }
 
-.search-box button {
+.search-box button,
+.search-box button#searchBtn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-small);
+    width: 48px;
     border: none;
-    background: var(--accent-primary);
+    background: var(--text-primary);
     color: var(--text-inverse);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
 }
 
-.search-box button svg {
+.search-box button svg,
+.search-box button#searchBtn svg {
     width: 18px;
     height: 18px;
 }
 
-.search-box button:hover {
-    background: var(--accent-hover);
-    transform: scale(1.05);
+.search-box button:hover,
+.search-box button#searchBtn:hover {
+    background: var(--accent-primary);
 }
 
 .search-options {
