@@ -34,6 +34,9 @@
     --toast-bg: #202124;
     --toast-text: #FFFFFF;
 
+    /* Nav Bar */
+    --nav-bg: #202124;
+
     /* Shadows */
     --shadow-soft: 0 1px 2px rgba(60, 64, 67, 0.1);
     --shadow-medium: 0 2px 6px rgba(60, 64, 67, 0.15);
@@ -170,33 +173,35 @@
    Theme: Dark Mode
    ================================ */
 [data-preset="dark"] {
-    --bg-primary: #0F1419;
-    --bg-surface: #1A1F29;
-    --bg-surface-muted: #252B37;
-    --bg-hover: #2F3642;
+    --bg-primary: #1C1E21;
+    --bg-surface: #242628;
+    --bg-surface-muted: #2C2F33;
+    --bg-hover: #363A3F;
 
-    --text-primary: #E6EDF3;
-    --text-secondary: #8B949E;
-    --text-muted: #6E7681;
-    --text-inverse: #0F1419;
+    --text-primary: #C9CCCF;
+    --text-secondary: #8A8F94;
+    --text-muted: #6B7075;
+    --text-inverse: #C9CCCF;
 
-    --accent-primary: #58A6FF;
-    --accent-hover: #79C0FF;
-    --accent-light: #79C0FF;
+    --accent-primary: #6B9FC8;
+    --accent-hover: #7FAED4;
+    --accent-light: #5A8BB5;
 
-    --border-primary: #30363D;
-    --border-secondary: #21262D;
-    --border-input: #444C56;
+    --border-primary: #3A3D42;
+    --border-secondary: #2E3136;
+    --border-input: #4A4E54;
 
-    --color-success: #7EE787;
-    --color-danger: #F85149;
+    --color-success: #6BBF78;
+    --color-danger: #D46A64;
 
-    --toast-bg: #1A1F29;
-    --toast-text: #E6EDF3;
+    --toast-bg: #242628;
+    --toast-text: #C9CCCF;
 
-    --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.5);
-    --shadow-medium: 0 2px 6px rgba(0, 0, 0, 0.6);
-    --shadow-strong: 0 4px 12px rgba(0, 0, 0, 0.7);
+    --nav-bg: #2C2F33;
+
+    --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-medium: 0 2px 6px rgba(0, 0, 0, 0.5);
+    --shadow-strong: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 /* ================================
@@ -395,7 +400,8 @@ body {
     margin: 0;
     font-family: var(--font-ui);
     background: var(--bg-surface-muted);
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     color: var(--text-primary);
@@ -403,13 +409,18 @@ body {
 }
 
 h1 {
-    font-size: 1.35rem;
+    font-size: 1rem;
     font-weight: 700;
     margin: 0;
-    padding: 0.6rem 1.5rem;
+    padding: 0.3rem 1rem;
     background: var(--accent-primary);
     color: var(--text-inverse);
     letter-spacing: -0.3px;
+    overflow: hidden;
+}
+
+h1.banner-hidden {
+    display: none;
 }
 
 h2 {
@@ -431,7 +442,7 @@ h3, h4 {
    ================================ */
 
 #navBar {
-    background: var(--text-primary);
+    background: var(--nav-bg);
     color: var(--text-inverse);
     padding: 0.5rem 1rem;
     margin: 0.75rem 0.75rem 0;
@@ -445,10 +456,21 @@ h3, h4 {
     z-index: 10;
 }
 
+#navBar select,
+#navBar button {
+    height: 36px;
+    box-sizing: border-box;
+}
+
 .nav-group {
     display: flex;
     align-items: center;
     gap: 6px;
+    min-width: 0;
+}
+
+.nav-group select {
+    min-width: 0;
 }
 
 .nav-icon {
@@ -461,6 +483,7 @@ h3, h4 {
 .nav-buttons {
     display: flex;
     gap: 4px;
+    flex-shrink: 0;
 }
 
 .nav-buttons button {
@@ -572,6 +595,7 @@ select:focus {
     border-radius: var(--radius-large);
     box-shadow: var(--shadow-medium);
     border: 1px solid var(--border-primary);
+    min-width: 0;
 }
 
 #biblePanel h1 {
@@ -724,18 +748,77 @@ select:focus {
 }
 
 /* ================================
+   Resize Handle
+   ================================ */
+
+#resizeHandle {
+    flex-shrink: 0;
+    width: 6px;
+    cursor: col-resize;
+    background: var(--border-primary);
+    border-radius: 3px;
+    transition: background 0.15s ease;
+    position: relative;
+}
+
+#resizeHandle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 30px;
+    background: var(--text-muted);
+    border-radius: 1px;
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+}
+
+#resizeHandle:hover {
+    background: var(--accent-primary);
+}
+
+#resizeHandle:hover::after {
+    opacity: 1;
+    background: var(--text-inverse);
+}
+
+/* ================================
    Side Panel
    ================================ */
 
 #sidePanel {
     flex: 1;
-    padding: 1.5rem;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     background: var(--bg-primary);
     border-radius: var(--radius-large);
     box-shadow: var(--shadow-medium);
     border: 1px solid var(--border-primary);
+    min-width: 0;
 }
+
+/* ================================
+   Panel Content Areas
+   ================================ */
+
+.panel-content {
+    display: none;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.panel-content.active {
+    display: block;
+}
+
+/* ================================
+   Word Details (in side panel)
+   ================================ */
 
 #sidePanel h3 {
     margin: 0 0 1rem 0;
@@ -762,6 +845,86 @@ select:focus {
 #definitionContent b {
     color: var(--text-primary);
     font-weight: 600;
+}
+
+/* ================================
+   Search Panel (in side panel)
+   ================================ */
+
+#panelSearch .search-container {
+    max-width: none;
+    margin: 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+#panelSearch .search-box input {
+    font-size: 0.9rem;
+}
+
+#panelSearch .search-status {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+#panelSearch .search-results {
+    gap: 1rem;
+}
+
+#panelSearch .result-item {
+    padding: 0.5rem 0.75rem;
+}
+
+#panelSearch .search-options {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+#panelSearch .checkbox-label {
+    font-size: 0.85rem;
+}
+
+/* ================================
+   Settings Panel (in side panel)
+   ================================ */
+
+#panelSettings {
+    padding: 0.75rem;
+}
+
+#panelSettings .settings-card {
+    margin-bottom: 0.75rem;
+}
+
+#panelSettings .settings-card h2 {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+#panelSettings .setting-row {
+    padding: 0.6rem 1rem;
+}
+
+#panelSettings .setting-row label {
+    font-size: 0.85rem;
+}
+
+#panelSettings .font-select {
+    min-width: 140px;
+    font-size: 0.8rem;
+    height: 32px;
+    padding: 0.4rem 0.6rem;
+}
+
+#panelSettings .preset-selector {
+    padding: 0.75rem;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+
+#panelSettings .preset-button {
+    padding: 8px 10px;
+    font-size: 0.8rem;
 }
 
 /* ================================
@@ -893,8 +1056,25 @@ select:focus {
         flex-direction: column;
     }
 
+    #biblePanel,
+    #sidePanel {
+        min-width: 0;
+        min-height: 0;
+    }
+
+    #resizeHandle {
+        width: 100%;
+        height: 6px;
+        cursor: row-resize;
+    }
+
+    #resizeHandle::after {
+        width: 30px;
+        height: 2px;
+    }
+
     #navBar {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: 6px;
         padding: 0.5rem 0.75rem;
     }
@@ -904,20 +1084,20 @@ select:focus {
     }
 
     .nav-icon {
-        width: 16px;
-        height: 16px;
+        display: none;
     }
 
     .nav-group select {
         padding: 0.4rem 0.5rem;
         font-size: 0.85rem;
+        min-width: 0;
     }
 }
 
 @media (max-width: 600px) {
     h1 {
-        font-size: 1.15rem;
-        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        padding: 0.25rem 0.75rem;
     }
 
     #main {
@@ -927,31 +1107,46 @@ select:focus {
 
     #navBar {
         margin: 0.5rem 0.5rem 0;
-        padding: 0.5rem 0.75rem;
+        padding: 0.4rem 0.5rem;
         top: 0.5rem;
+        gap: 4px;
+    }
+
+    #navBar select,
+    #navBar button {
+        height: 30px;
     }
 
     .nav-buttons button,
-    #settingsBtn,
-    #searchBtn {
-        width: 32px;
-        height: 32px;
+    .nav-panel-btn {
+        width: 30px;
     }
 
     .nav-buttons button svg,
-    #settingsBtn svg,
-    #searchBtn svg {
-        width: 16px;
-        height: 16px;
+    .nav-panel-btn svg {
+        width: 15px;
+        height: 15px;
     }
 
-    .nav-icon {
-        display: none;
+    .nav-group select {
+        padding: 0.3rem 0.4rem;
+        font-size: 0.8rem;
     }
 
-    #biblePanel,
-    #sidePanel {
+    .nav-panel-buttons {
+        gap: 3px;
+    }
+
+    .nav-buttons {
+        gap: 3px;
+    }
+
+    #biblePanel {
         padding: 1rem;
+    }
+
+    .panel-content {
+        padding: 0.75rem;
     }
 }
 
@@ -1086,8 +1281,15 @@ select:focus {
     color: var(--text-primary);
 }
 
-/* Settings Button in Nav */
-#settingsBtn {
+/* Panel Buttons in Nav */
+.nav-panel-buttons {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.nav-panel-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1100,20 +1302,24 @@ select:focus {
     color: var(--text-inverse);
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-left: auto;
 }
 
-#settingsBtn svg {
+.nav-panel-btn svg {
     width: 18px;
     height: 18px;
 }
 
-#settingsBtn:hover {
+.nav-panel-btn:hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
 }
 
-#settingsBtn:focus {
+.nav-panel-btn.active {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-panel-btn:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
 }
@@ -1160,7 +1366,7 @@ select:focus {
 }
 
 /* ================================
-   Search Button in Nav
+   Search Button in Nav (search.html standalone page)
    ================================ */
 #searchBtn {
     display: flex;
@@ -1188,14 +1394,30 @@ select:focus {
     border-color: rgba(255, 255, 255, 0.4);
 }
 
-#searchBtn:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+#settingsBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: var(--radius-small);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 4px;
 }
 
-/* Move settings button to not have auto margin when search exists */
-#searchBtn + #settingsBtn {
-    margin-left: 4px;
+#settingsBtn svg {
+    width: 18px;
+    height: 18px;
+}
+
+#settingsBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* ================================

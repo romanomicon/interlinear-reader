@@ -35,9 +35,9 @@
     </script>
 </head>
 
-<h1>Interlinear Bible Reader</h1>
-
 <body>
+
+<h1>Interlinear Bible Reader</h1>
 
     <div id="navBar">
         <div class="nav-group">
@@ -68,25 +68,190 @@
                 </svg>
             </button>
         </div>
-        <button id="searchBtn" onclick="window.location.href='search.html'" title="Search">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-        </button>
-        <button id="settingsBtn" onclick="window.location.href='settings.html'" title="Settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-        </button>
+        <div class="nav-panel-buttons">
+            <button class="nav-panel-btn active" data-panel="word" onclick="switchPanel('word')" title="Word Details">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+            </button>
+            <button class="nav-panel-btn" data-panel="search" onclick="switchPanel('search')" title="Search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            <button class="nav-panel-btn" data-panel="settings" onclick="switchPanel('settings')" title="Settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </button>
+        </div>
     </div>
 
     <div id="main">
         <div id="biblePanel"></div>
+        <div id="resizeHandle" title="Drag to resize panels"></div>
         <div id="sidePanel">
-            <h3>Word Details</h3>
-            <div id="definitionContent">Click a word to see details here.</div>
+            <!-- Word Details Panel -->
+            <div id="panelWord" class="panel-content active">
+                <div id="definitionContent">Click a word to see details here.</div>
+            </div>
+
+            <!-- Search Panel -->
+            <div id="panelSearch" class="panel-content">
+                <div class="search-container">
+                    <div class="search-box">
+                        <div class="search-box-input">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" id="searchInput" placeholder="Search for words or phrases..." autocomplete="off">
+                        </div>
+                        <button id="searchGoBtn" title="Search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="search-type-toggle">
+                        <button class="search-type-btn active" data-type="text">Text Search</button>
+                        <button class="search-type-btn" data-type="strongs">Strong's Number</button>
+                    </div>
+                    <div class="search-options" id="textOptions">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="caseSensitive">
+                            <span>Case sensitive</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="wholeWord">
+                            <span>Whole word only</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="exactPhrase" checked>
+                            <span>Exact phrase</span>
+                        </label>
+                    </div>
+                    <p class="search-hint" id="multiWordHint" style="display: none;">Words can appear anywhere in the verse, in any order.</p>
+                    <div class="search-options" id="strongsOptions" style="display: none;">
+                        <p class="search-hint">Enter a Strong's number (e.g., H430, G2316) to find all occurrences.</p>
+                    </div>
+                </div>
+                <div id="searchStatus" class="search-status"></div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <!-- Settings Panel -->
+            <div id="panelSettings" class="panel-content">
+                <section class="settings-card">
+                    <h2>Typography</h2>
+                    <p class="muted">Choose your reading font and size</p>
+                    <div class="font-settings">
+                        <div class="setting-row">
+                            <div>
+                                <label for="fontSelect">Reading Font</label>
+                                <div class="description">Select a font for Bible text</div>
+                            </div>
+                            <select id="fontSelect" class="font-select">
+                                <optgroup label="System Fonts">
+                                    <option value="system">System Default</option>
+                                    <option value="georgia">Georgia</option>
+                                    <option value="palatino">Palatino</option>
+                                    <option value="times">Times New Roman</option>
+                                    <option value="garamond">Garamond</option>
+                                    <option value="baskerville">Baskerville</option>
+                                    <option value="charter">Charter</option>
+                                </optgroup>
+                                <optgroup label="Serif (Google Fonts)">
+                                    <option value="merriweather">Merriweather</option>
+                                    <option value="lora">Lora</option>
+                                    <option value="source-serif">Source Serif</option>
+                                    <option value="literata">Literata</option>
+                                    <option value="eb-garamond">EB Garamond</option>
+                                    <option value="libre-baskerville">Libre Baskerville</option>
+                                </optgroup>
+                                <optgroup label="Sans-Serif (Google Fonts)">
+                                    <option value="open-sans">Open Sans</option>
+                                    <option value="roboto">Roboto</option>
+                                    <option value="inter">Inter</option>
+                                    <option value="atkinson">Atkinson Hyperlegible</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <label for="fontSizeSelect">Text Size</label>
+                                <div class="description">Adjust the reading text size</div>
+                            </div>
+                            <select id="fontSizeSelect" class="font-select">
+                                <option value="small">Small</option>
+                                <option value="medium">Medium (Default)</option>
+                                <option value="large">Large</option>
+                                <option value="x-large">Extra Large</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <label for="lineHeightSelect">Line Spacing</label>
+                                <div class="description">Adjust space between lines</div>
+                            </div>
+                            <select id="lineHeightSelect" class="font-select">
+                                <option value="compact">Compact</option>
+                                <option value="normal">Normal (Default)</option>
+                                <option value="relaxed">Relaxed</option>
+                                <option value="spacious">Spacious</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+                <section class="settings-card">
+                    <h2>Preview</h2>
+                    <div id="fontPreview" style="display: flex; flex-direction: column; gap: 0.75rem; padding: 1rem;">
+                        <div class="preview-text" style="padding: 0.75rem; background: var(--bg-surface); border-radius: var(--radius-small); font-family: var(--font-reading); font-size: var(--font-size-base); line-height: var(--line-height-base);">
+                            <span style="color: var(--accent-primary); font-weight: 700; margin-right: 0.5rem;">1</span>
+                            In the beginning God created the heavens and the earth.
+                            <span style="color: var(--accent-primary); font-weight: 700; margin-left: 0.5rem; margin-right: 0.5rem;">2</span>
+                            Now the earth was formless and empty, darkness was over the surface of the deep, and the Spirit of God was hovering over the waters.
+                        </div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">
+                            Font: <strong id="currentFontDisplay">System Default</strong> |
+                            Size: <strong id="currentSizeDisplay">Medium</strong> |
+                            Spacing: <strong id="currentLineHeightDisplay">Normal</strong>
+                        </div>
+                    </div>
+                </section>
+                <section class="settings-card">
+                    <h2>Theme</h2>
+                    <p class="muted">Choose a color theme for the reader</p>
+                    <div class="preset-selector">
+                        <button class="preset-button" data-preset="default">Default Blue</button>
+                        <button class="preset-button" data-preset="dark">Dark Mode</button>
+                        <button class="preset-button" data-preset="blue">Ocean Teal</button>
+                        <button class="preset-button" data-preset="green">Forest Green</button>
+                        <button class="preset-button" data-preset="orange">Sunset Orange</button>
+                        <button class="preset-button" data-preset="purple">Purple Haze</button>
+                        <button class="preset-button" data-preset="sepia">Sepia Classic</button>
+                        <button class="preset-button" data-preset="grayscale">Grayscale</button>
+                    </div>
+                </section>
+                <section class="settings-card">
+                    <h2>About</h2>
+                    <div class="setting-row">
+                        <div>
+                            <label>Automatic Saving</label>
+                            <div class="description">All settings are saved automatically and will be remembered when you return.</div>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div>
+                            <label>Keyboard Shortcut</label>
+                            <div class="description">Press <strong>Ctrl + Shift + T</strong> to quickly toggle between light and dark mode.</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 
@@ -96,6 +261,160 @@
         let currentChapter = [];
         let bookMap = {}; // book -> chapters
 
+        // ==================== Panel Switching ====================
+        let currentPanel = 'word';
+
+        function switchPanel(panelName, scrollToPanel) {
+            // Toggle: if already on this panel, switch back to word
+            if (currentPanel === panelName && panelName !== 'word') {
+                panelName = 'word';
+            }
+            currentPanel = panelName;
+
+            // Update nav bar buttons
+            document.querySelectorAll('.nav-panel-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.panel === panelName);
+            });
+
+            // Update panel content visibility
+            document.querySelectorAll('.panel-content').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            const targetPanel = document.getElementById('panel' + panelName.charAt(0).toUpperCase() + panelName.slice(1));
+            if (targetPanel) targetPanel.classList.add('active');
+
+            // On mobile, scroll to the side panel when requested
+            if (scrollToPanel !== false && window.innerWidth <= 900) {
+                const sidePanel = document.getElementById('sidePanel');
+                setTimeout(() => sidePanel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+            }
+
+            // Focus search input when switching to search
+            if (panelName === 'search') {
+                setTimeout(() => {
+                    const input = document.getElementById('searchInput');
+                    if (input) input.focus();
+                }, 100);
+            }
+        }
+
+        // ==================== Resize Handle ====================
+        (function initResize() {
+            const handle = document.getElementById('resizeHandle');
+            const main = document.getElementById('main');
+            const biblePanel = document.getElementById('biblePanel');
+            const sidePanel = document.getElementById('sidePanel');
+            let isResizing = false;
+
+            // Apply ratio using flex-grow (avoids gap/handle overflow issues)
+            function applyRatio(ratio) {
+                biblePanel.style.flex = ratio + ' 1 0';
+                sidePanel.style.flex = (1 - ratio) + ' 1 0';
+                biblePanel.style.width = '';
+                sidePanel.style.width = '';
+                biblePanel.style.height = '';
+                sidePanel.style.height = '';
+            }
+
+            // Restore saved ratio
+            const savedRatio = localStorage.getItem('panelRatio');
+            if (savedRatio) {
+                const ratio = parseFloat(savedRatio);
+                if (ratio > 0.2 && ratio < 0.9) {
+                    applyRatio(ratio);
+                }
+            }
+
+            function startResize(e) {
+                isResizing = true;
+                document.body.style.cursor = window.innerWidth <= 900 ? 'row-resize' : 'col-resize';
+                document.body.style.userSelect = 'none';
+                e.preventDefault();
+            }
+
+            function doResize(e) {
+                if (!isResizing) return;
+                const mainRect = main.getBoundingClientRect();
+                const isVertical = window.innerWidth <= 900;
+
+                let ratio;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                if (isVertical) {
+                    ratio = (clientY - mainRect.top) / mainRect.height;
+                } else {
+                    ratio = (clientX - mainRect.left) / mainRect.width;
+                }
+
+                // Clamp ratio
+                ratio = Math.max(0.2, Math.min(0.85, ratio));
+
+                applyRatio(ratio);
+                localStorage.setItem('panelRatio', ratio.toString());
+            }
+
+            function stopResize() {
+                if (!isResizing) return;
+                isResizing = false;
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            }
+
+            handle.addEventListener('mousedown', startResize);
+            document.addEventListener('mousemove', doResize);
+            document.addEventListener('mouseup', stopResize);
+            handle.addEventListener('touchstart', startResize, { passive: false });
+            document.addEventListener('touchmove', doResize, { passive: false });
+            document.addEventListener('touchend', stopResize);
+
+            // Double-click to reset
+            handle.addEventListener('dblclick', () => {
+                biblePanel.style.flex = '';
+                sidePanel.style.flex = '';
+                biblePanel.style.width = '';
+                sidePanel.style.width = '';
+                biblePanel.style.height = '';
+                sidePanel.style.height = '';
+                localStorage.removeItem('panelRatio');
+            });
+        })();
+
+        // ==================== Banner Auto-Hide on Scroll ====================
+        (function initBannerHide() {
+            const banner = document.querySelector('h1');
+            const biblePanel = document.getElementById('biblePanel');
+            let lastScrollTop = 0;
+            let hidden = false;
+            let ignoreScroll = false;
+
+            biblePanel.addEventListener('scroll', () => {
+                if (ignoreScroll) return;
+
+                const scrollTop = biblePanel.scrollTop;
+                const delta = scrollTop - lastScrollTop;
+                lastScrollTop = scrollTop;
+
+                if (!hidden && delta > 8 && scrollTop > 50) {
+                    hidden = true;
+                    ignoreScroll = true;
+                    banner.classList.add('banner-hidden');
+                    setTimeout(() => {
+                        lastScrollTop = biblePanel.scrollTop;
+                        ignoreScroll = false;
+                    }, 150);
+                } else if (hidden && delta < -8) {
+                    hidden = false;
+                    ignoreScroll = true;
+                    banner.classList.remove('banner-hidden');
+                    setTimeout(() => {
+                        lastScrollTop = biblePanel.scrollTop;
+                        ignoreScroll = false;
+                    }, 150);
+                }
+            });
+        })();
+
         // Load JSON files
         Promise.all([
             fetch('bible.json').then(r => r.json()),
@@ -104,9 +423,11 @@
             bibleData = bibleJson;
             strongsData = strongsJson;
             initializeNavigation();
+            initializeSearch();
+            initializeSettings();
         });
 
-        // Initialize book/chapter dropdowns
+        // ==================== Navigation ====================
         function initializeNavigation() {
             const bookSelect = document.getElementById('bookSelect');
             const chapterSelect = document.getElementById('chapterSelect');
@@ -345,9 +666,11 @@
             return div;
         }
 
-
-
+        // ==================== Word Definition ====================
         function displayDefinition(wordSpan) {
+            // Switch to word panel without scrolling (don't scroll away from text)
+            switchPanel('word', false);
+
             document.querySelectorAll('.word.selected').forEach(w => w.classList.remove('selected'));
             wordSpan.classList.add('selected');
 
@@ -391,9 +714,13 @@
             document.getElementById('definitionContent').innerHTML = content;
         }
 
-        // Navigate to search page with Strong's number
+        // Search for Strong's number in the inline search panel
         function searchStrongsInBible(strongs) {
-            window.location.href = `search.html?type=strongs&q=${encodeURIComponent(strongs)}`;
+            switchPanel('search');
+            const input = document.getElementById('searchInput');
+            input.value = strongs;
+            setSearchType('strongs');
+            setTimeout(performSearch, 50);
         }
 
         // Scroll to a specific verse
@@ -432,6 +759,431 @@
             }).catch(err => {
                 console.error('Failed to copy verse:', err);
             });
+        }
+
+        // ==================== Search System ====================
+        let isSearching = false;
+        let searchType = 'text';
+
+        function initializeSearch() {
+            // Search type toggle
+            document.querySelectorAll('.search-type-btn').forEach(btn => {
+                btn.addEventListener('click', () => setSearchType(btn.dataset.type));
+            });
+
+            // Toggle hint for non-exact phrase search
+            document.getElementById('exactPhrase').addEventListener('change', (e) => {
+                document.getElementById('multiWordHint').style.display = e.target.checked ? 'none' : 'block';
+            });
+
+            // Search triggers
+            document.getElementById('searchGoBtn').addEventListener('click', performSearch);
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+        }
+
+        function setSearchType(type) {
+            searchType = type;
+            document.querySelectorAll('.search-type-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`[data-type="${type}"]`).classList.add('active');
+
+            const searchInput = document.getElementById('searchInput');
+            const textOptions = document.getElementById('textOptions');
+            const strongsOptions = document.getElementById('strongsOptions');
+
+            if (type === 'strongs') {
+                searchInput.placeholder = "Enter Strong's number (e.g., H430, G2316)...";
+                textOptions.style.display = 'none';
+                strongsOptions.style.display = 'flex';
+            } else {
+                searchInput.placeholder = "Search for words or phrases...";
+                textOptions.style.display = 'flex';
+                strongsOptions.style.display = 'none';
+            }
+        }
+
+        function performSearch() {
+            if (isSearching) return;
+
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) return;
+
+            isSearching = true;
+            const statusEl = document.getElementById('searchStatus');
+            const resultsEl = document.getElementById('searchResults');
+
+            statusEl.innerHTML = '<span class="loading">Searching...</span>';
+            resultsEl.innerHTML = '';
+
+            setTimeout(() => {
+                let results;
+                if (searchType === 'strongs') {
+                    results = searchByStrongs(query);
+                } else {
+                    const caseSensitive = document.getElementById('caseSensitive').checked;
+                    const wholeWord = document.getElementById('wholeWord').checked;
+                    const exactPhrase = document.getElementById('exactPhrase').checked;
+                    results = searchBible(query, caseSensitive, wholeWord, exactPhrase);
+                }
+                displaySearchResults(results, query, searchType === 'text' && document.getElementById('caseSensitive').checked);
+                isSearching = false;
+            }, 50);
+        }
+
+        function searchByStrongs(query) {
+            const results = [];
+            let strongsNum = query.toUpperCase().trim();
+            if (!strongsNum.match(/^[HG]\d+$/)) {
+                const digits = strongsNum.replace(/\D/g, '');
+                if (digits) {
+                    strongsNum = 'H' + digits;
+                }
+            }
+
+            const normalizedSearch = strongsNum[0] + strongsNum.slice(1).replace(/^0+/, '');
+
+            bibleData.forEach(item => {
+                const parts = item.r.split(':');
+                if (parts.length < 4) return;
+                const [translation, book, chapter, verseNum] = parts;
+                if (item.h || !item.d || !Array.isArray(item.d)) return;
+
+                const matchingWords = [];
+                item.d.forEach(wordObj => {
+                    if (!wordObj.s || !wordObj.t) return;
+                    const storedStrongs = wordObj.s.toUpperCase();
+                    const normalizedStored = storedStrongs[0] + storedStrongs.slice(1).replace(/^0+/, '');
+                    if (normalizedStored === normalizedSearch) {
+                        const english = wordObj.t.split('|')[0];
+                        if (english && !matchingWords.includes(english)) {
+                            matchingWords.push(english);
+                        }
+                    }
+                });
+
+                if (matchingWords.length > 0) {
+                    const verseText = extractVerseText(item.d);
+                    results.push({
+                        book, chapter, verse: verseNum,
+                        text: verseText,
+                        reference: `${book} ${chapter}:${verseNum}`,
+                        strongsNum,
+                        matchingWords
+                    });
+                }
+            });
+
+            return results;
+        }
+
+        function searchBible(query, caseSensitive, wholeWord, exactPhrase) {
+            const results = [];
+            const searchQuery = caseSensitive ? query : query.toLowerCase();
+            const searchWords = exactPhrase ? null : searchQuery.split(/\s+/).filter(w => w.length > 0);
+
+            let regex = null;
+            if (wholeWord && exactPhrase) {
+                const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                regex = new RegExp(`\\b${escapedQuery}\\b`, caseSensitive ? 'g' : 'gi');
+            }
+
+            bibleData.forEach(item => {
+                const parts = item.r.split(':');
+                if (parts.length < 4) return;
+                const [translation, book, chapter, verseNum] = parts;
+                if (item.h || !item.d || !Array.isArray(item.d)) return;
+
+                const verseText = extractVerseText(item.d);
+                if (!verseText) return;
+
+                const textToSearch = caseSensitive ? verseText : verseText.toLowerCase();
+                let matches = false;
+
+                if (!exactPhrase && searchWords && searchWords.length > 1) {
+                    matches = searchWords.every(word => {
+                        if (wholeWord) {
+                            const wordRegex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, caseSensitive ? '' : 'i');
+                            return wordRegex.test(textToSearch);
+                        }
+                        return textToSearch.includes(word);
+                    });
+                } else if (wholeWord && regex) {
+                    matches = regex.test(textToSearch);
+                    regex.lastIndex = 0;
+                } else {
+                    matches = textToSearch.includes(searchQuery);
+                }
+
+                if (matches) {
+                    results.push({
+                        book, chapter, verse: verseNum,
+                        text: verseText,
+                        reference: `${book} ${chapter}:${verseNum}`
+                    });
+                }
+            });
+
+            return results;
+        }
+
+        function extractVerseText(wordArray) {
+            let text = '';
+            wordArray.forEach(wordObj => {
+                if (wordObj.t) {
+                    const english = wordObj.t.split('|')[0];
+                    if (english) {
+                        if (text.length > 0) text += ' ';
+                        text += english;
+                    }
+                }
+            });
+            return text.trim();
+        }
+
+        function displaySearchResults(results, query, caseSensitive) {
+            const statusEl = document.getElementById('searchStatus');
+            const resultsEl = document.getElementById('searchResults');
+
+            if (results.length === 0) {
+                statusEl.innerHTML = `<span class="no-results">No results found for "<strong>${escapeHtml(query)}</strong>"</span>`;
+                resultsEl.innerHTML = '';
+                return;
+            }
+
+            const isStrongsSearch = searchType === 'strongs';
+            statusEl.innerHTML = `<span class="results-count">Found <strong>${results.length}</strong> result${results.length !== 1 ? 's' : ''} for "<strong>${escapeHtml(query)}</strong>"</span>`;
+
+            // Group results by book
+            const groupedResults = {};
+            results.forEach(result => {
+                if (!groupedResults[result.book]) groupedResults[result.book] = [];
+                groupedResults[result.book].push(result);
+            });
+
+            let html = '';
+            for (const book in groupedResults) {
+                html += `<div class="result-book">
+                    <h3 class="book-header">${book} <span class="count">(${groupedResults[book].length})</span></h3>
+                    <div class="book-results">`;
+
+                groupedResults[book].forEach(result => {
+                    let highlightedText;
+                    if (isStrongsSearch && result.matchingWords && result.matchingWords.length > 0) {
+                        highlightedText = highlightStrongsWords(result.text, result.matchingWords);
+                    } else {
+                        highlightedText = highlightMatches(result.text, query, caseSensitive);
+                    }
+                    html += `
+                        <a href="#" class="result-item" data-book="${escapeHtml(result.book)}" data-chapter="${result.chapter}" data-verse="${result.verse}">
+                            <span class="result-reference">${result.reference}</span>
+                            <span class="result-text">${highlightedText}</span>
+                        </a>`;
+                });
+
+                html += '</div></div>';
+            }
+
+            resultsEl.innerHTML = html;
+
+            // Add click handlers to navigate inline
+            resultsEl.querySelectorAll('.result-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const book = item.dataset.book;
+                    const chapter = item.dataset.chapter;
+                    const verse = item.dataset.verse;
+
+                    // Navigate to the book/chapter
+                    const bookSelect = document.getElementById('bookSelect');
+                    const chapterSelect = document.getElementById('chapterSelect');
+                    bookSelect.value = book;
+                    populateChapterSelect(book);
+                    chapterSelect.value = chapter;
+                    loadChapter(book, chapter);
+
+                    // Scroll to verse after render
+                    setTimeout(() => scrollToVerse(verse), 100);
+                });
+            });
+        }
+
+        function highlightMatches(text, query, caseSensitive) {
+            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedQuery})`, caseSensitive ? 'g' : 'gi');
+            return escapeHtml(text).replace(regex, '<mark>$1</mark>');
+        }
+
+        function highlightStrongsWords(text, matchingWords) {
+            let result = escapeHtml(text);
+            matchingWords.forEach(word => {
+                const cleanWord = word.replace(/^[^\w]+|[^\w]+$/g, '').trim();
+                if (!cleanWord) return;
+                const escapedWord = cleanWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(`(${escapedWord})(?=[\\s,.:;!?'"\\)\\]\\-]|$)`, 'gi');
+                result = result.replace(regex, '<mark>$1</mark>');
+            });
+            return result;
+        }
+
+        // ==================== Settings System ====================
+        function initializeSettings() {
+            const root = document.documentElement;
+            const themeButtons = document.querySelectorAll('#panelSettings .preset-button');
+            const fontSelect = document.getElementById('fontSelect');
+            const fontSizeSelect = document.getElementById('fontSizeSelect');
+            const lineHeightSelect = document.getElementById('lineHeightSelect');
+            const currentFontDisplay = document.getElementById('currentFontDisplay');
+            const currentSizeDisplay = document.getElementById('currentSizeDisplay');
+            const currentLineHeightDisplay = document.getElementById('currentLineHeightDisplay');
+
+            const fontNames = {
+                'system': 'System Default', 'georgia': 'Georgia', 'palatino': 'Palatino',
+                'times': 'Times New Roman', 'garamond': 'Garamond', 'baskerville': 'Baskerville',
+                'charter': 'Charter', 'merriweather': 'Merriweather', 'lora': 'Lora',
+                'source-serif': 'Source Serif', 'literata': 'Literata', 'eb-garamond': 'EB Garamond',
+                'libre-baskerville': 'Libre Baskerville', 'open-sans': 'Open Sans',
+                'roboto': 'Roboto', 'inter': 'Inter', 'atkinson': 'Atkinson Hyperlegible'
+            };
+            const sizeNames = { 'small': 'Small', 'medium': 'Medium', 'large': 'Large', 'x-large': 'Extra Large' };
+            const lineHeightNames = { 'compact': 'Compact', 'normal': 'Normal', 'relaxed': 'Relaxed', 'spacious': 'Spacious' };
+
+            function updateDisplayLabels() {
+                currentFontDisplay.textContent = fontNames[fontSelect.value] || fontSelect.value;
+                currentSizeDisplay.textContent = sizeNames[fontSizeSelect.value] || fontSizeSelect.value;
+                currentLineHeightDisplay.textContent = lineHeightNames[lineHeightSelect.value] || lineHeightSelect.value;
+            }
+
+            // Load saved settings
+            const savedPreset = localStorage.getItem('themePreset') || 'default';
+            const savedFont = localStorage.getItem('fontFamily') || 'system';
+            const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+            const savedLineHeight = localStorage.getItem('lineHeight') || 'normal';
+
+            // Apply saved settings
+            fontSelect.value = savedFont;
+            fontSizeSelect.value = savedFontSize;
+            lineHeightSelect.value = savedLineHeight;
+            updateThemeActiveButton(savedPreset);
+            updateDisplayLabels();
+
+            // Theme button listeners
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const preset = btn.dataset.preset;
+                    setTheme(preset);
+                    localStorage.setItem('themePreset', preset);
+                    updateThemeActiveButton(preset);
+                    showConfirmation(`Theme: ${getThemeName(preset)}`);
+                });
+            });
+
+            // Font select listener
+            fontSelect.addEventListener('change', () => {
+                const font = fontSelect.value;
+                setFont(font);
+                localStorage.setItem('fontFamily', font);
+                updateDisplayLabels();
+                showConfirmation(`Font: ${fontNames[font]}`);
+            });
+
+            // Font size select listener
+            fontSizeSelect.addEventListener('change', () => {
+                const size = fontSizeSelect.value;
+                setFontSize(size);
+                localStorage.setItem('fontSize', size);
+                updateDisplayLabels();
+                showConfirmation(`Size: ${sizeNames[size]}`);
+            });
+
+            // Line height select listener
+            lineHeightSelect.addEventListener('change', () => {
+                const lineHeight = lineHeightSelect.value;
+                setLineHeight(lineHeight);
+                localStorage.setItem('lineHeight', lineHeight);
+                updateDisplayLabels();
+                showConfirmation(`Spacing: ${lineHeightNames[lineHeight]}`);
+            });
+
+            // Keyboard shortcut: Ctrl+Shift+T to toggle dark mode
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
+                    e.preventDefault();
+                    const currentPreset = localStorage.getItem('themePreset') || 'default';
+                    const newPreset = currentPreset === 'dark' ? 'default' : 'dark';
+                    setTheme(newPreset);
+                    localStorage.setItem('themePreset', newPreset);
+                    updateThemeActiveButton(newPreset);
+                    showConfirmation(`Switched to ${getThemeName(newPreset)}`);
+                }
+            });
+
+            function setTheme(presetName) {
+                if (presetName === 'default') {
+                    root.removeAttribute('data-preset');
+                } else {
+                    root.setAttribute('data-preset', presetName);
+                }
+            }
+
+            function setFont(fontName) {
+                if (fontName === 'system') {
+                    root.removeAttribute('data-font');
+                } else {
+                    root.setAttribute('data-font', fontName);
+                }
+            }
+
+            function setFontSize(size) {
+                if (size === 'medium') {
+                    root.removeAttribute('data-font-size');
+                } else {
+                    root.setAttribute('data-font-size', size);
+                }
+            }
+
+            function setLineHeight(lineHeight) {
+                if (lineHeight === 'normal') {
+                    root.removeAttribute('data-line-height');
+                } else {
+                    root.setAttribute('data-line-height', lineHeight);
+                }
+            }
+
+            function updateThemeActiveButton(activePreset) {
+                themeButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.preset === activePreset);
+                });
+            }
+
+            function getThemeName(preset) {
+                const names = {
+                    'default': 'Default Blue', 'dark': 'Dark Mode', 'blue': 'Ocean Teal',
+                    'green': 'Forest Green', 'orange': 'Sunset Orange', 'purple': 'Purple Haze',
+                    'sepia': 'Sepia Classic', 'grayscale': 'Grayscale'
+                };
+                return names[preset] || preset;
+            }
+        }
+
+        function showConfirmation(message) {
+            let toast = document.getElementById('settings-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'settings-toast';
+                toast.style.cssText = `
+                    position: fixed; bottom: 20px; right: 20px;
+                    background: var(--toast-bg); color: var(--toast-text);
+                    padding: 12px 20px; border-radius: var(--radius-medium);
+                    box-shadow: var(--shadow-strong); opacity: 0;
+                    transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease;
+                    z-index: 1000; font-size: 0.9rem; pointer-events: none;
+                `;
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            setTimeout(() => { toast.style.opacity = '1'; toast.style.transform = 'translateY(0)'; }, 10);
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(20px)'; }, 2000);
         }
 
         // ==================== Notes System ====================
